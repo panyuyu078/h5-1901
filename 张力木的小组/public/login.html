@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css"
+		integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+	<script src="https://www.jq22.com/jquery/jquery-3.3.1.js"></script>
+	<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"
+		integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous">
+	</script>
+	<style>
+		[v-cloak] {
+			display: none;
+		}
+		body, html{
+			height: 100%;
+			background-image: url("http://r.photo.store.qq.com/psc?/V12kua821ZqiJF/YPhsM5mUO5.bFmyDEhTOh0aJc0qyE6NEnhhwC5HUM52p0yYzppFhUSOOgd9Uo5HBn1v4ob.JFfYKF13vW68s0NP9aFogy2Ug6CpilB2p7KA!/r");
+			background-size: cover;
+		}
+		.btn{
+			transition: 0.3s;
+		}
+		.btn:hover{
+			color: white;
+			border: 1px solid white;
+		}
+		.btn-info{
+			background-color: rgba(53, 52, 52, 0.9);
+			border: 1px solid rgba(53, 52, 52, 0.9);
+		}
+		.btn-info:hover{
+			background-color: rgba(53, 52, 52, 0.9);
+			border: 1px solid rgba(53, 52, 52, 0.9);
+		}
+	</style>
+</head>
+
+<body>
+	<div style="width: 100%;height: 100%;background-color: rgba(0, 0, 0, 0.2);">
+	<div id="box" class="container" v-cloak="" style="padding-top: 150px;">
+		<div class="row" style="padding-top: 100px;">
+			<div class="col-md-4 col-md-offset-8" style="min-height: 200px;color: white;">
+				<div style="min-height: 200px;">
+					<div v-show="index==0">
+						<h2 style="line-height: 50px;border-bottom: 1px solid #FFFFFF;">登录</h2>
+						<div style="font-size: 20px;">
+							<div class="form-group">
+								<label for="user_in">账号</label>
+								<input type="text" class="form-control" id="user_in" placeholder="用户账号"
+									v-model="login_in.user">
+							</div>
+							<div class="form-group">
+								<label for="password">密码</label>
+								<input type="password" class="form-control" id="pass_in" placeholder="用户密码"
+									v-model="login_in.pass">
+							</div>
+						</div>
+					</div>
+					<div v-show="index==1">
+						<h2 style="line-height: 50px;border-bottom: 1px solid #FFFFFF;">注册</h2>
+						<div id="" style="font-size: 20px;">
+							<div class="form-group">
+								<label for="user_up">请输入昵称</label>
+								<input type="text" class="form-control" id="user_up" placeholder="填写昵称"
+									v-model="login_up.name">
+							</div>
+							<div class="form-group">
+								<label for="pass_up">请输入密码</label>
+								<input type="password" class="form-control" id="pass_up" placeholder="填写密码"
+									v-model="login_up.pass">
+							</div>
+						</div>
+					</div>
+				</div>
+				<div>
+					<div :class="['btn',index==0?'btn-info':'']"
+						style="width: 50%;float: left;line-height: 50px;text-align: center;" @click="btn(0)">点击登录</div>
+					<div :class="['btn',index==1?'btn-info':'']"
+						style="width: 50%;float: left;line-height: 50px;text-align: center;" @click="btn(1)">点击注册</div>
+				</div>
+			</div>
+
+		</div>
+		<!--模态框-->
+		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+								aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title" id="myModalLabel">完善个人信息</h4>
+					</div>
+					<div class="modal-body">
+						<h4>你的账号是：{{username}}</h4>
+						<div class="form-group">
+							<label for="no1">你的邮箱</label>
+							<input type="text" class="form-control" id="no1" placeholder="邮箱" v-model="text.email">
+						</div>
+						<div class="form-group">
+							<label for="no2">你的手机号码</label>
+							<input type="text" class="form-control" id="no2" placeholder="手机号" v-model="text.tel">
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary" id="local" @click="btn_up">提交注册</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</div>
+</body>
+<script src="vue.js"></script>
+<script src="vue-resource.js"></script>
+<script>
+	new Vue({
+		el: "#box",
+		data: {
+			href: 'http://localhost:8001',
+			index: 1,
+			login_in: {
+				user: '',
+				pass: ''
+			},
+			login_up: {
+				name: '',
+				pass: ''
+			},
+			text: {
+				email: '',
+				tel: ''
+			},
+			username: ''
+		},
+		methods: {
+			btn_up() {
+				this.text.user = this.username
+				this.$http.post(this.href + '/text', this.text, {
+					emulateJSON: true
+				}).then((data) => {
+					if (data.data.type == 0) {
+						$('#myModal').modal('hide')
+						localStorage.user = JSON.stringify(data.data.data)
+						window.open('./index.html','_self')
+					}
+				})
+			},
+			btn(uid) {
+				if (this.index == uid) {
+					if (this.index == 0) {
+						console.log('登录')
+						this.$http.post(this.href + '/in', this.login_in, {
+							emulateJSON: true
+						}).then((data) => {
+							console.log(data)
+							localStorage.user = JSON.stringify(data.data.data)
+							if(data.data.type == 0) {
+								window.open('./index.html','_self')
+							}
+						})
+					} else {
+						console.log('注册')
+						this.$http.post(this.href + '/up', this.login_up, {
+							emulateJSON: true
+						}).then((data) => {
+
+							if (data.data.type == 0) {
+								this.username = data.data.data.user
+								$('#myModal').modal('show')
+							} else {
+								alert('注册失败，用户名已存在')
+							}
+
+						})
+					}
+				} else {
+					this.index = uid
+				}
+			}
+		}
+	})
+</script>
+
+</html>
