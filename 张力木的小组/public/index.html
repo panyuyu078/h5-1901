@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>app</title>
+	<link rel="stylesheet" type="text/css" href="https://at.alicdn.com/t/font_1539782_sjsb7g9o6t.css"/>
+	<script src="https://api.map.baidu.com/api?v=3.0&ak=ZVxQBFByXwIR6q06AXIHvxOeIRKMkO1F"></script>
+	<link rel="stylesheet" type="text/css" href="swiper.css"/>
+	<!-- 引入样式 -->
+<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+<!-- 引入组件库 -->
+<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+	<style type="text/css">
+		 .clearfix:before,
+		        .clearfix:after {
+		            display: table;
+		            content: "";    /*不用有内容也可以*/
+		        }
+		
+		        .clearfix:after {
+		            clear: both;
+		        }
+		
+		        .clearfix {
+		            *zoom: 1;
+		        }
+	</style>
+  </head>
+  <body>
+    <div id="app"></div>
+		<script src="swiper.js"></script>
+    <script src="./dist/build.js"></script>
+	<script type="text/javascript">
+		 var swiper = new Swiper('.swiper-container', {
+			 loop:true,
+		      pagination: {
+		        el: '.swiper-pagination',
+		        type: 'fraction',
+		      },
+		      navigation: {
+		        nextEl: '.swiper-button-next',
+		        prevEl: '.swiper-button-prev',
+		      },
+		    });
+	</script>
+  </body>
+</html>
